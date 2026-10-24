@@ -1,0 +1,42 @@
+<Project>
+  <!-- Package versions for every project in this repository (NuGet central package management). -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup Label="EasyQuery and EasyData">
+    <PackageVersion Include="EasyData.Exporters.ClosedXML" Version="1.6.0" />
+    <PackageVersion Include="EasyData.Exporters.PdfSharp" Version="1.6.0" />
+    <PackageVersion Include="Korzh.EasyQuery.AspNetCore" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.DataExport" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.EntityFrameworkCore.Identity" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.EntityFrameworkCore.Relational" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.SqLiteGate" Version="7.5.0" />
+    <PackageVersion Include="Korzh.EasyQuery.SqlServerGate" Version="7.5.0" />
+  </ItemGroup>
+  <ItemGroup Label="Other packages">
+    <PackageVersion Include="Korzh.DbUtils.Import" Version="1.4.3" />
+    <PackageVersion Include="Korzh.DbUtils.Sqlite" Version="1.4.3" />
+    <PackageVersion Include="Korzh.DbUtils.SqlServer" Version="1.4.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components" Version="6.0.25" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
+    <PackageVersion Include="NuGet.Common" Version="5.11.7" />
+    <PackageVersion Include="NuGet.Protocol" Version="5.11.7" />
+    <PackageVersion Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageVersion Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
+    <PackageVersion Include="System.Net.Http" Version="4.3.4" />
+    <PackageVersion Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+</Project>
