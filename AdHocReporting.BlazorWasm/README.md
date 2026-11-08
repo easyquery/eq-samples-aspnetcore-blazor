@@ -8,7 +8,7 @@ Part of [EasyQuery samples for ASP.NET Core + Blazor](../README.md).
 
 | | |
 |---|---|
-| Host | ASP.NET Core 6 |
+| Host | ASP.NET Core 10 |
 | UI | Blazor WebAssembly |
 | Language | C# |
 | EasyQuery | 7.5.0 — `Korzh.EasyQuery.AspNetCore`, `Korzh.EasyQuery.DataExport`, `Korzh.EasyQuery.EntityFrameworkCore.Relational`, `Korzh.EasyQuery.EntityFrameworkCore.Identity` |
@@ -17,7 +17,7 @@ Part of [EasyQuery samples for ASP.NET Core + Blazor](../README.md).
 
 ## Prerequisites
 
-* [.NET 6 SDK](https://dotnet.microsoft.com/download)
+* [.NET 10 SDK](https://dotnet.microsoft.com/download)
 * Visual Studio 2022 17.2 or later, VS Code or any other editor (optional)
 * SQL Server Express LocalDB (installed with Visual Studio)
 
