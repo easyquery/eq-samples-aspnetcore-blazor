@@ -1,5 +1,7 @@
-using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,7 @@ using Korzh.EasyQuery.Services;
 using EqDemo.Data;
 using EqDemo.Models;
 using EqDemo.Services;
+using EqDemo.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,18 +32,26 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(opts => {
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.AddIdentityServer()
-    .AddApiAuthorization<ApplicationUser, AppDbContext>(options => {
-        //the following 2 lines are necessary to support roles on the WebAssembly side
-        options.IdentityResources["openid"].UserClaims.Add("role");
-        options.ApiResources.Single().UserClaims.Add("role");
-    });
+// The Blazor WebAssembly client is served by this same app, so it signs in with the ordinary
+// ASP.NET Core Identity cookie: there are no tokens to obtain, store or attach to requests.
+// The browser sends the cookie with every same-origin call, the EasyQuery widgets' calls included.
+builder.Services.ConfigureApplicationCookie(options => {
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
 
-// We need to do this as it maps "role" to ClaimTypes.Role and causes issues
-JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
+    // API calls must get a status code, not a redirect to the HTML login page
+    options.Events.OnRedirectToLogin = context => RespondToChallenge(context, StatusCodes.Status401Unauthorized);
+    options.Events.OnRedirectToAccessDenied = context => RespondToChallenge(context, StatusCodes.Status403Forbidden);
 
-builder.Services.AddAuthentication()
-    .AddIdentityServerJwt();
+    static Task RespondToChallenge(RedirectContext<CookieAuthenticationOptions> context, int apiStatusCode)
+    {
+        if (context.Request.Path.StartsWithSegments("/api"))
+            context.Response.StatusCode = apiStatusCode;
+        else
+            context.Response.Redirect(context.RedirectUri);
+        return Task.CompletedTask;
+    }
+});
 
 //EasyQuery services
 builder.Services.AddEasyQuery()
@@ -79,7 +90,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseIdentityServer();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -115,6 +125,21 @@ app.MapEasyQuery(options => {
     });
 });
 
+// The client's AuthenticationStateProvider asks here who the current user is
+app.MapGet("/api/account/user", (ClaimsPrincipal user) =>
+    user.Identity?.IsAuthenticated == true
+        ? new UserInfo {
+            IsAuthenticated = true,
+            Name = user.Identity.Name,
+            Roles = user.FindAll(ClaimTypes.Role).Select(c => c.Value).ToArray()
+        }
+        : new UserInfo());
+
+// Logs the user out without leaving the Blazor app
+app.MapPost("/api/account/logout", async (SignInManager<ApplicationUser> signInManager) => {
+    await signInManager.SignOutAsync();
+    return Results.NoContent();
+}).RequireAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();

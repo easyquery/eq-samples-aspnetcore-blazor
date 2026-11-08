@@ -3,10 +3,6 @@
 easyquery.blazor = {
     initEasyQueryView: function (view, viewOptions) {
         var context = view.getContext();
-        if (viewOptions.token) {
-            var http = context.getServices().getHttpClient();
-            http.defaultHeaders['Authorization'] = 'Bearer ' + viewOptions.token;
-        }
         context.setAppName('Sample/AspNetCore/Blazor/AdHocReporting.BlazorWasm');
         context.useBackend({ type: 'EQN-ANC', subType: 'asp-net-core-spa' });
         context.useEndpoint('/api/adhoc-reporting');
@@ -15,7 +11,7 @@ easyquery.blazor = {
         });
     },
 
-    startAdhocReporting: function (token) {
+    startAdhocReporting: function () {
         //Options for ReportView
         var viewOptions = {
             //Saves report on each change
@@ -44,9 +40,7 @@ easyquery.blazor = {
             loadModelOnStart: true,
 
             //Default model's ID (we use it here just for a nice folder name in App_Data folder)
-            defaultModelId: 'adhoc-reporting',
-
-            token: token
+            defaultModelId: 'adhoc-reporting'
 
         }
 
