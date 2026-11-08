@@ -9,8 +9,8 @@ to .NET applications. The samples in this repository show it on ASP.NET Core + B
 
 | Sample | Scenario | Stack |
 |---|---|---|
-| [Advanced search (Blazor Server)](AdvancedSearch.BlazorServer) | Advanced search | ASP.NET Core 6 · Blazor Server · C# |
-| [Ad-hoc reporting (Blazor WebAssembly)](AdHocReporting.BlazorWasm) | Ad-hoc reporting | ASP.NET Core 6 · Blazor WebAssembly · C# |
+| [Advanced search (Blazor Server)](AdvancedSearch.BlazorServer) | Advanced search | ASP.NET Core 10 · Blazor Server · C# |
+| [Ad-hoc reporting (Blazor WebAssembly)](AdHocReporting.BlazorWasm) | Ad-hoc reporting | ASP.NET Core 10 · Blazor WebAssembly · C# |
 
 * **Advanced search.** A full-page query builder: users pick the columns, combine any conditions they need, run the query and work with the result — sorting, paging and export.
 * **Ad-hoc reporting.** A basic ad-hoc reporting tool: users keep a list of reports, set up the columns and conditions of each one, and see the result as a table (with grouping and totals) or a chart.

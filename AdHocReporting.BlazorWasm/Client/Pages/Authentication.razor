@@ -1,7 +1,52 @@
 ﻿@page "/authentication/{action}"
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-<RemoteAuthenticatorView Action="@Action" />
+@using EqDemo.Client.Services
+@inject NavigationManager Navigation
+@inject ServerAuthenticationStateProvider AuthStateProvider
 
-@code{
+@*
+    Sign-in and registration are the server's ASP.NET Core Identity pages (Server/Areas/Identity),
+    so this page only leaves the Blazor app for them - or, for "logout", signs out right here.
+*@
+<p>Please wait...</p>
+
+@code {
     [Parameter] public string? Action { get; set; }
+
+    [SupplyParameterFromQuery] public string? ReturnUrl { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var returnUrl = LocalReturnUrl();
+
+        switch (Action) {
+            case "login":
+                Navigation.NavigateTo($"Identity/Account/Login?returnUrl={Uri.EscapeDataString(returnUrl)}", forceLoad: true);
+                break;
+            case "register":
+                Navigation.NavigateTo($"Identity/Account/Register?returnUrl={Uri.EscapeDataString(returnUrl)}", forceLoad: true);
+                break;
+            case "profile":
+                Navigation.NavigateTo("Identity/Account/Manage", forceLoad: true);
+                break;
+            case "logout":
+                await AuthStateProvider.LogoutAsync();
+                Navigation.NavigateTo("", forceLoad: true);
+                break;
+            default:
+                Navigation.NavigateTo("");
+                break;
+        }
+    }
+
+    // The Identity pages accept only a local return URL, such as "/reports"
+    private string LocalReturnUrl()
+    {
+        try {
+            return "/" + Navigation.ToBaseRelativePath(Navigation.ToAbsoluteUri(ReturnUrl ?? "").ToString());
+        }
+        catch (ArgumentException) {
+            // a URL outside this app
+            return "/";
+        }
+    }
 }
