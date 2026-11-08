@@ -12,7 +12,6 @@
     <PackageReference Include="NuGet.Protocol" />
     <PackageReference Include="System.Data.SqlClient" />
     <PackageReference Include="System.Drawing.Common" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Client\EqDemo.BlazorWasm.AdhocReporting.Client.csproj" />
@@ -23,7 +22,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
-    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <!-- Transitive pin: EF Core 10.0.x resolves Microsoft.Data.SqlClient 6.1.7, whose
